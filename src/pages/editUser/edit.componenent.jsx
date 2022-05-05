@@ -2,9 +2,9 @@ import React from 'react';
 import UserForm from '../../components/userForm.component';
 import { PageContainer, PageTitle } from '../home/home.styles';
 
-export const Add = ({ handler }) => (
+export const Edit = ({ user }) => (
 	<PageContainer>
-		<PageTitle>Add New User</PageTitle>
-		<UserForm handler={handler} />
+		<PageTitle>Edit Existing User</PageTitle>
+		<UserForm user={user} />
 	</PageContainer>
 );

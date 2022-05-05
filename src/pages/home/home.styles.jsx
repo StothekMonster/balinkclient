@@ -5,6 +5,7 @@ export const PageContainer = styled.div`
 	align-items: center;
 	padding: 20px 80px;
 	height: 100vh;
+	background-color: ${(props) => props.theme.colors.white};
 `;
 
 export const Grid = styled.div`

@@ -3,13 +3,15 @@ import { HomePage } from './pages/home/home.component';
 import GlobalStyle from './globalStyles';
 import React, { useEffect, useState } from 'react';
 import { ThemeProvider } from 'styled-components';
-import { getAllUsers } from './utils/serverCalls';
+import { getAllUsers, addUser } from './utils/serverCalls';
 import { Add } from './pages/addUser/add.componenent';
+import { Edit } from './pages/editUser/edit.componenent';
 export const PATHS = { HOME: '/', ADD: '/add', EDIT: 'edit/:id' };
 const theme = {
 	colors: {
 		white: '#f4fcf2',
 		black: '#40404A',
+		gray0: '#ebebeb',
 		gray1: '#C3C9C1',
 		gray2: '#797D78',
 		green1: '#B8FDA7',
@@ -42,8 +44,8 @@ function App() {
 							path={PATHS.HOME}
 							element={<HomePage users={users} setUsers={setusers} />}
 						/>
-						<Route exact path={PATHS.ADD} element={<Add />} />
-						<Route exact path={PATHS.EDIT} element={<HomePage />} />
+						<Route exact path={PATHS.ADD} element={<Add handler={addUser} />} />
+						<Route exact path={PATHS.EDIT} element={<Edit />} />
 					</Routes>
 				</div>
 			</ThemeProvider>
