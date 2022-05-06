@@ -1,8 +1,11 @@
+import { useTranslation } from 'react-i18next';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { HomePage } from './pages/home/home.component';
 import GlobalStyle from './globalStyles';
 import React, { useEffect, useState } from 'react';
 import { ThemeProvider } from 'styled-components';
+import './i18n';
+
 import {
 	getAllUsers,
 	addUser,
@@ -29,9 +32,14 @@ const theme = {
 	},
 };
 function App() {
-	const [users, setUsers] = useState([]);
+	const { i18n } = useTranslation();
 
+	const [users, setUsers] = useState([]);
 	const [toastMessage, setToastMessage] = useState('');
+
+	const changeLanguage = (lng) => {
+		i18n.changeLanguage(lng);
+	};
 
 	useEffect(() => {
 		async function fetchData() {
@@ -55,6 +63,7 @@ function App() {
 									users={users}
 									setUsers={setUsers}
 									toastMessage={toastMessage}
+									changeLanguageHandler={changeLanguage}
 								/>
 							}
 						/>
@@ -66,6 +75,7 @@ function App() {
 									handler={addUser}
 									setUsers={setUsers}
 									setToast={setToastMessage}
+									changeLanguageHandler={changeLanguage}
 								/>
 							}
 						/>
@@ -78,6 +88,7 @@ function App() {
 									setUsers={setUsers}
 									setToast={setToastMessage}
 									deleteHandler={deleteUser}
+									changeLanguageHandler={changeLanguage}
 								/>
 							}
 						/>

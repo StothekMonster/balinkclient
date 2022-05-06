@@ -17,10 +17,30 @@ const Button = styled.button`
 	box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
 	font-size: 2rem;
 	letter-spacing: 2px;
+	transition: transform 0.3s ease;
+	cursor: pointer;
+
+	&:active {
+		transform: scale(0.98);
+	}
 `;
 
 export const Buttons = styled.div`
 	display: flex;
+`;
+
+const LanguageButton = styled(Button)`
+	padding: 10px 10px;
+	font-size: 1.5rem;
+	letter-spacing: 1px;
+`;
+
+export const HebrewButton = styled(LanguageButton)`
+	background-color: ${(props) => props.theme.colors.blue1};
+`;
+
+export const EnglishButton = styled(LanguageButton)`
+	background-color: ${(props) => props.theme.colors.green1};
 `;
 
 export const SendButton = styled(Button)`

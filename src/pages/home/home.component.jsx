@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { ToastContainer, toast } from 'react-toastify';
+import { useTranslation } from 'react-i18next';
 
 import 'react-toastify/dist/ReactToastify.css';
 import { FaSort } from 'react-icons/fa';
@@ -23,11 +24,12 @@ import {
 import _ from 'lodash';
 import { PATHS } from '../../App';
 import { Link } from 'react-router-dom';
+import LanguageButtons from '../../components/LanguageButtons.jsx';
 
 const params = {
 	id: { label: 'id' },
-	firstName: { label: 'first name', dataLabel: 'first_name' },
-	lastName: { label: 'last name', dataLabel: 'last_name' },
+	firstName: { label: 'first', dataLabel: 'first_name' },
+	lastName: { label: 'last', dataLabel: 'last_name' },
 	phone: { label: 'phone' },
 	age: { label: 'age' },
 };
@@ -36,7 +38,8 @@ const toastOptions = {
 	position: toast.POSITION.BOTTOM_LEFT,
 };
 
-export const HomePage = ({ users, setUsers, toastMessage }) => {
+export const HomePage = ({ users, toastMessage, changeLanguageHandler }) => {
+	const { t } = useTranslation();
 	const [usersCopy, setUsersCopy] = useState([]);
 	const [search, setSearch] = useState('');
 
@@ -51,21 +54,22 @@ export const HomePage = ({ users, setUsers, toastMessage }) => {
 	const header = (
 		<Grid>
 			<Col1 onClick={() => filterAndSort(params.id.label)}>
-				{params.id.label} {sortIcon === params.id.label ? <FaSort /> : null}
+				{t(params.id.label)} {sortIcon === params.id.label ? <FaSort /> : null}
 			</Col1>
 			<Col2 onClick={() => filterAndSort(params.firstName.dataLabel)}>
-				{params.firstName.label}{' '}
+				{t(params.firstName.label)}{' '}
 				{sortIcon === params.firstName.dataLabel ? <FaSort /> : null}
 			</Col2>
 			<Col3 onClick={() => filterAndSort(params.lastName.dataLabel)}>
-				{params.lastName.label}{' '}
+				{t(params.lastName.label)}{' '}
 				{sortIcon === params.lastName.dataLabel ? <FaSort /> : null}
 			</Col3>
 			<Col4 onClick={() => filterAndSort(params.age.label)}>
-				{params.age.label} {sortIcon === params.age.label ? <FaSort /> : null}
+				{t(params.age.label)}{' '}
+				{sortIcon === params.age.label ? <FaSort /> : null}
 			</Col4>
 			<Col5 onClick={() => filterAndSort(params.phone.label)}>
-				{params.phone.label}{' '}
+				{t(params.phone.label)}{' '}
 				{sortIcon === params.phone.label ? <FaSort /> : null}
 			</Col5>
 		</Grid>
@@ -96,9 +100,10 @@ export const HomePage = ({ users, setUsers, toastMessage }) => {
 
 	return (
 		<PageContainer>
-			<PageTitle>home</PageTitle>
+			<PageTitle>{t('home')}</PageTitle>
+			<LanguageButtons changeLanguageHandler={changeLanguageHandler} />
 			<FilterContainer>
-				<Label>Filter: </Label>
+				<Label>{`${t('filter')}:`} </Label>
 				<Filter
 					onChange={(e) => {
 						setSearch(e);

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 // import { Link } from 'react-router-dom';
 import { PATHS } from '../App';
 import { getAllUsers } from '../utils/serverCalls';
+import { useTranslation } from 'react-i18next';
 
 import { useNavigate } from 'react-router-dom';
 
@@ -16,6 +17,8 @@ import {
 
 const UserForm = ({ user, handler, setUsers, setToast, deleteHandler }) => {
 	let navigate = useNavigate();
+	const { t } = useTranslation();
+
 	const [allValid, setAllValid] = useState(true);
 
 	const [firstName, setFirstName] = useState(user ? user.first_name : '');
@@ -86,7 +89,7 @@ const UserForm = ({ user, handler, setUsers, setToast, deleteHandler }) => {
 			<Input
 				error={firstNameError && firstNameTouched}
 				defaultValue={firstName}
-				placeholder='First Name'
+				placeholder={t('first')}
 				type='text'
 				name='firstName'
 				onChange={(e) => {
@@ -100,7 +103,7 @@ const UserForm = ({ user, handler, setUsers, setToast, deleteHandler }) => {
 
 			<Input
 				error={lastNameError && LastNameTouched}
-				defaultValue={lastName}
+				defaultValue={t('last')}
 				placeholder='Last Name'
 				type='text'
 				onChange={(e) => {
@@ -115,7 +118,7 @@ const UserForm = ({ user, handler, setUsers, setToast, deleteHandler }) => {
 			<Input
 				error={ageError && ageTouched}
 				defaultValue={age}
-				placeholder='Age '
+				placeholder={t('age')}
 				type='number'
 				onChange={(e) => {
 					setAge(+e.target.value);
@@ -129,16 +132,14 @@ const UserForm = ({ user, handler, setUsers, setToast, deleteHandler }) => {
 			<Input
 				error={phoneError && phoneTouched}
 				defaultValue={phone}
-				placeholder='Phone'
+				placeholder={t('phone')}
 				type='text'
 				onChange={(e) => {
 					setPhone(+e.target.value);
 					setPhoneTouched(true);
 				}}
 			/>
-			{phoneError && phoneTouched ? (
-				<p>phone number must be between 6 and 15 digits </p>
-			) : null}
+			{phoneError && phoneTouched ? <p>{t('phoneError')}</p> : null}
 			<Buttons>
 				{/* <Link to={PATHS.HOME}> */}
 				<BackButton
@@ -146,7 +147,7 @@ const UserForm = ({ user, handler, setUsers, setToast, deleteHandler }) => {
 						navigate(PATHS.HOME);
 						setToast('');
 					}}>
-					Back
+					{t('back')}
 				</BackButton>
 				{/* </Link> */}
 				{user ? (
@@ -157,11 +158,11 @@ const UserForm = ({ user, handler, setUsers, setToast, deleteHandler }) => {
 							setToast(`Deleted User: ${user.first_name} ${user.last_name}`);
 							navigate(PATHS.HOME);
 						}}>
-						Delete
+						{t('delete')}
 					</DeleteButton>
 				) : null}
 				<SendButton disabled={!allValid} onClick={submit}>
-					{user ? 'Edit' : 'Submit'}
+					{user ? `${t('editBtn')}` : `${t('submit')}`}
 				</SendButton>
 			</Buttons>
 		</FormContainer>
