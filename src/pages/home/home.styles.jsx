@@ -8,6 +8,16 @@ export const PageContainer = styled.div`
 	background-color: ${(props) => props.theme.colors.white};
 `;
 
+export const UserRowsDiv = styled.div`
+	width: 100%;
+	height: 80%;
+	overflow-y: scroll;
+
+	&::-webkit-scrollbar {
+		display: none;
+	}
+`;
+
 export const Grid = styled.div`
 	margin-top: 30px;
 	width: 100%;
@@ -41,9 +51,7 @@ const dataGridRow = styled(Grid)`
 	margin-top: 0px;
 	border-top: none;
 	text-transform: capitalize;
-	/* &:last-child { */
-
-	/* } */
+	cursor: pointer;
 `;
 
 export const EvenGridDataRow = styled(dataGridRow)`
@@ -100,4 +108,29 @@ export const AddNewUserButton = styled.button`
 		transform: scale(0.95);
 		box-shadow: 1px 1px 1px rgba(0, 0, 0.4);
 	}
+`;
+
+export const Label = styled.p`
+	font-size: 1.5rem;
+	margin-right: 20px;
+`;
+
+export const Filter = styled.input`
+	font-size: 1.5rem;
+	padding: 10px;
+	border-radius: 3px;
+	width: 100%;
+	border: 5px solid white;
+	background-color: ${(props) => props.theme.colors.black};
+	color: white;
+	cursor: text;
+`;
+
+export const FilterContainer = styled.div`
+	align-items: center;
+	margin-top: 30px;
+	width: 100%;
+	height: 50px;
+	flex-direction: row;
+	display: flex;
 `;

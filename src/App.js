@@ -3,7 +3,7 @@ import { HomePage } from './pages/home/home.component';
 import GlobalStyle from './globalStyles';
 import React, { useEffect, useState } from 'react';
 import { ThemeProvider } from 'styled-components';
-import { getAllUsers, addUser } from './utils/serverCalls';
+import { getAllUsers, addUser, editUser } from './utils/serverCalls';
 import { Add } from './pages/addUser/add.componenent';
 import { Edit } from './pages/editUser/edit.componenent';
 export const PATHS = { HOME: '/', ADD: '/add', EDIT: 'edit/:id' };
@@ -24,11 +24,14 @@ const theme = {
 	},
 };
 function App() {
-	const [users, setusers] = useState([]);
+	const [users, setUsers] = useState([]);
+
+	const [toastMessage, setToastMessage] = useState('');
+
 	useEffect(() => {
 		async function fetchData() {
 			let response = await getAllUsers();
-			setusers(response);
+			setUsers(response);
 		}
 		fetchData();
 	}, []);
@@ -42,10 +45,36 @@ function App() {
 						<Route
 							exact
 							path={PATHS.HOME}
-							element={<HomePage users={users} setUsers={setusers} />}
+							element={
+								<HomePage
+									users={users}
+									setUsers={setUsers}
+									toastMessage={toastMessage}
+								/>
+							}
 						/>
-						<Route exact path={PATHS.ADD} element={<Add handler={addUser} />} />
-						<Route exact path={PATHS.EDIT} element={<Edit />} />
+						<Route
+							exact
+							path={PATHS.ADD}
+							element={
+								<Add
+									handler={addUser}
+									setUsers={setUsers}
+									setToast={setToastMessage}
+								/>
+							}
+						/>
+						<Route
+							path={PATHS.EDIT}
+							element={
+								<Edit
+									handler={editUser}
+									users={users}
+									setUsers={setUsers}
+									setToast={setToastMessage}
+								/>
+							}
+						/>
 					</Routes>
 				</div>
 			</ThemeProvider>

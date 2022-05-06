@@ -1,16 +1,24 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+
+import { ToastContainer, toast } from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.css';
+import { FaSort } from 'react-icons/fa';
+import UserRows from './userRows.jsx';
 import {
 	PageContainer,
 	PageTitle,
+	FilterContainer,
+	Label,
+	Filter,
 	Grid,
 	Col1,
 	Col2,
 	Col3,
 	Col4,
 	Col5,
-	EvenGridDataRow,
-	OddGridDataRow,
 	AddNewUserButton,
+	UserRowsDiv,
 } from './home.styles';
 import _ from 'lodash';
 import { PATHS } from '../../App';
@@ -19,59 +27,97 @@ import { Link } from 'react-router-dom';
 const params = {
 	id: { label: 'id' },
 	firstName: { label: 'first name', dataLabel: 'first_name' },
-	phone: { label: 'phone' },
 	lastName: { label: 'last name', dataLabel: 'last_name' },
+	phone: { label: 'phone' },
 	age: { label: 'age' },
 };
 
-export const HomePage = ({ users, setUsers }) => {
-	const userRows = users
-		? users.map(({ id, first_name, last_name, phone, age }, idx) => {
-				const userDetails = (
-					<>
-						<Col1>{id}</Col1>
-						<Col2>{first_name}</Col2>
-						<Col3>{last_name}</Col3>
-						<Col4>{age}</Col4>
-						<Col5>{phone}</Col5>
-					</>
-				);
-				return idx % 2 === 0 ? (
-					<EvenGridDataRow key={id}>{userDetails}</EvenGridDataRow>
-				) : (
-					<OddGridDataRow key={id}>{userDetails}</OddGridDataRow>
-				);
-		  })
-		: null;
+const toastOptions = {
+	position: toast.POSITION.BOTTOM_LEFT,
+};
 
-	const sort = (data, ascending, param) => {
-		setUsers(_.orderBy(data, param, ascending));
+export const HomePage = ({ users, setUsers, toastMessage }) => {
+	const [usersCopy, setUsersCopy] = useState([]);
+	const [search, setSearch] = useState('');
+
+	console.log(usersCopy);
+
+	const [sortIcon, setSortIcon] = useState(params.id.label);
+
+	useEffect(() => {
+		if (toastMessage) {
+			toast.success(toastMessage, toastOptions);
+		}
+	}, [toastMessage]);
+
+	const header = (
+		<Grid>
+			<Col1 onClick={() => filterAndSort(params.id.label)}>
+				{params.id.label} {sortIcon === params.id.label ? <FaSort /> : null}
+			</Col1>
+			<Col2 onClick={() => filterAndSort(params.firstName.dataLabel)}>
+				{params.firstName.label}{' '}
+				{sortIcon === params.firstName.dataLabel ? <FaSort /> : null}
+			</Col2>
+			<Col3 onClick={() => filterAndSort(params.lastName.dataLabel)}>
+				{params.lastName.label}{' '}
+				{sortIcon === params.lastName.dataLabel ? <FaSort /> : null}
+			</Col3>
+			<Col4 onClick={() => filterAndSort(params.age.label)}>
+				{params.age.label} {sortIcon === params.age.label ? <FaSort /> : null}
+			</Col4>
+			<Col5 onClick={() => filterAndSort(params.phone.label)}>
+				{params.phone.label}{' '}
+				{sortIcon === params.phone.label ? <FaSort /> : null}
+			</Col5>
+		</Grid>
+	);
+
+	const filterAndSort = (param, searchTerm = '') => {
+		const filteredData = filter(searchTerm);
+		const sortedData = sort(filteredData, param);
+		setUsersCopy(sortedData);
+	};
+
+	const sort = (data, param, ascending = true) => {
+		setSortIcon(param);
+		return _.orderBy(data, param, ascending);
+	};
+
+	const filter = (searchTerm) => {
+		return users.filter((user) => {
+			return (
+				('' + user.id).includes(searchTerm) ||
+				user.first_name.includes(searchTerm) ||
+				user.last_name.includes(searchTerm) ||
+				('' + user.age).includes(searchTerm) ||
+				('' + user.phone).includes(searchTerm)
+			);
+		});
 	};
 
 	return (
 		<PageContainer>
 			<PageTitle>home</PageTitle>
-			<Grid>
-				<Col1 onClick={() => sort(users, true, params.id.label)}>
-					{params.id.label}
-				</Col1>
-				<Col2 onClick={() => sort(users, true, params.firstName.dataLabel)}>
-					{params.firstName.label}
-				</Col2>
-				<Col3 onClick={() => sort(users, true, params.lastName.dataLabel)}>
-					{params.lastName.label}
-				</Col3>
-				<Col4 onClick={() => sort(users, true, params.age.label)}>
-					{params.age.label}
-				</Col4>
-				<Col5 onClick={() => sort(users, true, params.phone.label)}>
-					{params.phone.label}
-				</Col5>
-			</Grid>
-			{userRows}
+			<FilterContainer>
+				<Label>Filter: </Label>
+				<Filter
+					onChange={(e) => {
+						setSearch(e);
+						filterAndSort(sortIcon, e.target.value);
+					}}
+				/>
+			</FilterContainer>
+			{header}
+			<UserRowsDiv>
+				<UserRows
+					users={usersCopy.length === 0 && search === '' ? users : usersCopy}
+				/>
+			</UserRowsDiv>
 			<Link to={PATHS.ADD}>
 				<AddNewUserButton>+</AddNewUserButton>
 			</Link>
+			<ToastContainer />
 		</PageContainer>
 	);
 };
