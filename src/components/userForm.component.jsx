@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import { PATHS } from '../App';
 import { getAllUsers } from '../utils/serverCalls';
 
@@ -7,13 +7,14 @@ import { useNavigate } from 'react-router-dom';
 
 import {
 	BackButton,
+	DeleteButton,
 	Buttons,
 	FormContainer,
 	Input,
 	SendButton,
 } from './userForm.styles';
 
-const UserForm = ({ user, handler, setUsers, setToast }) => {
+const UserForm = ({ user, handler, setUsers, setToast, deleteHandler }) => {
 	let navigate = useNavigate();
 	const [allValid, setAllValid] = useState(true);
 
@@ -58,7 +59,13 @@ const UserForm = ({ user, handler, setUsers, setToast }) => {
 
 	const submit = async () => {
 		if (allValid) {
-			const data = await handler(firstName, lastName, age, phone);
+			const data = await handler({
+				firstName,
+				lastName,
+				age,
+				phone,
+				id: user ? user.id : null,
+			});
 			if (data.status === 'success') {
 				let response = await getAllUsers();
 				setUsers(response);
@@ -133,12 +140,28 @@ const UserForm = ({ user, handler, setUsers, setToast }) => {
 				<p>phone number must be between 6 and 15 digits </p>
 			) : null}
 			<Buttons>
-				<Link to={PATHS.HOME}>
-					<BackButton>Back</BackButton>
-				</Link>
-
+				{/* <Link to={PATHS.HOME}> */}
+				<BackButton
+					onClick={() => {
+						navigate(PATHS.HOME);
+						setToast('');
+					}}>
+					Back
+				</BackButton>
+				{/* </Link> */}
+				{user ? (
+					<DeleteButton
+						onClick={async () => {
+							let newUsers = await deleteHandler(user.id);
+							setUsers(newUsers);
+							setToast(`Deleted User: ${user.first_name} ${user.last_name}`);
+							navigate(PATHS.HOME);
+						}}>
+						Delete
+					</DeleteButton>
+				) : null}
 				<SendButton disabled={!allValid} onClick={submit}>
-					Submit
+					{user ? 'Edit' : 'Submit'}
 				</SendButton>
 			</Buttons>
 		</FormContainer>

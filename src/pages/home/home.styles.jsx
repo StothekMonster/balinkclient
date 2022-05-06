@@ -8,16 +8,6 @@ export const PageContainer = styled.div`
 	background-color: ${(props) => props.theme.colors.white};
 `;
 
-export const UserRowsDiv = styled.div`
-	width: 100%;
-	height: 80%;
-	overflow-y: scroll;
-
-	&::-webkit-scrollbar {
-		display: none;
-	}
-`;
-
 export const Grid = styled.div`
 	margin-top: 30px;
 	width: 100%;
@@ -35,18 +25,29 @@ export const Grid = styled.div`
 	background-color: ${(props) => props.theme.colors.blue1};
 	border: 1px solid ${(props) => props.theme.colors.black};
 	color: ${(props) => props.theme.colors.white};
-	box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
 	&:last-child {
 		border-bottom-left-radius: 4px;
 		border-bottom-right-radius: 4px;
 	}
-	&:first-child {
-		border-top-right-radius: 4px;
-		border-top-left-radius: 4px;
+
+	border-top-right-radius: 4px;
+	border-top-left-radius: 4px;
+`;
+
+export const UserRowsDiv = styled.div`
+	width: 100%;
+	height: 80%;
+	overflow-y: scroll;
+
+	&::-webkit-scrollbar {
+		display: none;
 	}
 `;
 
 const dataGridRow = styled(Grid)`
+	border-top-right-radius: 0px;
+	border-top-left-radius: 0px;
+
 	color: ${(props) => props.theme.colors.black};
 	margin-top: 0px;
 	border-top: none;
@@ -83,6 +84,7 @@ export const Col5 = styled.div`
 `;
 
 export const PageTitle = styled.h1`
+	margin-bottom: 30px;
 	font-size: 2rem;
 	text-transform: capitalize;
 `;
@@ -122,6 +124,7 @@ export const Filter = styled.input`
 	width: 100%;
 	border: 5px solid white;
 	background-color: ${(props) => props.theme.colors.black};
+	box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.2);
 	color: white;
 	cursor: text;
 `;
@@ -133,4 +136,5 @@ export const FilterContainer = styled.div`
 	height: 50px;
 	flex-direction: row;
 	display: flex;
+	padding-bottom: 50px;
 `;

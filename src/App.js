@@ -3,7 +3,12 @@ import { HomePage } from './pages/home/home.component';
 import GlobalStyle from './globalStyles';
 import React, { useEffect, useState } from 'react';
 import { ThemeProvider } from 'styled-components';
-import { getAllUsers, addUser, editUser } from './utils/serverCalls';
+import {
+	getAllUsers,
+	addUser,
+	editUser,
+	deleteUser,
+} from './utils/serverCalls';
 import { Add } from './pages/addUser/add.componenent';
 import { Edit } from './pages/editUser/edit.componenent';
 export const PATHS = { HOME: '/', ADD: '/add', EDIT: 'edit/:id' };
@@ -72,6 +77,7 @@ function App() {
 									users={users}
 									setUsers={setUsers}
 									setToast={setToastMessage}
+									deleteHandler={deleteUser}
 								/>
 							}
 						/>

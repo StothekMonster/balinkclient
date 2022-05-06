@@ -35,6 +35,10 @@ export const BackButton = styled(Button)`
 	background-color: ${(props) => props.theme.colors.blue1};
 `;
 
+export const DeleteButton = styled(Button)`
+	background-color: ${(props) => props.theme.colors.red};
+`;
+
 export const Input = styled.input`
 	padding: 10px;
 	margin: 10px;

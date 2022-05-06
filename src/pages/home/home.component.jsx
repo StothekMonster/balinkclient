@@ -40,8 +40,6 @@ export const HomePage = ({ users, setUsers, toastMessage }) => {
 	const [usersCopy, setUsersCopy] = useState([]);
 	const [search, setSearch] = useState('');
 
-	console.log(usersCopy);
-
 	const [sortIcon, setSortIcon] = useState(params.id.label);
 
 	useEffect(() => {
