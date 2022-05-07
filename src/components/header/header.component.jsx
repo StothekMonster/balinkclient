@@ -30,7 +30,7 @@ const Header = ({ changeLanguageHandler }) => {
 									changeLanguageHandler(language);
 								}}
 							/>
-							<div />
+							<div language={language} />
 						</Switch>
 					</SwitchContainer>
 				</li>

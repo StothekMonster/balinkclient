@@ -65,7 +65,11 @@ export const Switch = styled.label`
 		height: 1em;
 		width: 1em;
 		border-radius: 1em;
-		background: ${(props) => props.theme.colors.green1};
+		background: ${(props) => {
+			return props.children[1].props.language === 'en'
+				? props.theme.colors.green1
+				: props.theme.colors.red;
+		}};
 		box-shadow: 0 0.1em 0.3em rgba(0, 0, 0, 0.3);
 		-webkit-transition: all 300ms;
 		-moz-transition: all 300ms;
