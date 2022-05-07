@@ -6,7 +6,6 @@ i18n
 	.use(LanguageDetector)
 	.use(initReactI18next)
 	.init({
-		// we init with resources
 		resources: {
 			en: {
 				translations: {
@@ -22,7 +21,11 @@ i18n
 					last: 'Last Name',
 					phone: 'Phone',
 					id: 'id',
+					add: 'Add New User',
 					phoneError: 'phone number must be between 6 and 15 digits',
+					lastNameError: 'Error: must have Last name',
+					firstNameError: 'Error: must have first name',
+					ageError: 'Error: age must be between 1 and 120',
 				},
 			},
 			he: {
@@ -39,7 +42,11 @@ i18n
 					last: 'שם משפחה',
 					phone: 'מספר טלפון',
 					id: 'מזהה',
+					add: 'הוסף משתמש חדש',
 					phoneError: 'מספר הטלפון חייב להיות בין 6 ל-15 ספרות',
+					lastNameError: 'שגיאה: חייב להיות שם משפחה',
+					firstNameError: 'שגיאה: חייב להיות שם פרטי',
+					ageError: 'שגיאה: הגיל חייב להיות בין 1 ל-120',
 				},
 			},
 		},

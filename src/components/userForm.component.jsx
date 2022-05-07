@@ -97,9 +97,7 @@ const UserForm = ({ user, handler, setUsers, setToast, deleteHandler }) => {
 					setFirstName(e.target.value);
 				}}
 			/>
-			{firstNameError && firstNameTouched ? (
-				<p>Error: must have first name</p>
-			) : null}
+			{firstNameError && firstNameTouched ? <p>{t('firstNameError')}</p> : null}
 
 			<Input
 				error={lastNameError && LastNameTouched}
@@ -111,9 +109,7 @@ const UserForm = ({ user, handler, setUsers, setToast, deleteHandler }) => {
 					setLastNameTouched(true);
 				}}
 			/>
-			{lastNameError && LastNameTouched ? (
-				<p>Error: must have Last name</p>
-			) : null}
+			{lastNameError && LastNameTouched ? <p>{t('lastNameError')}</p> : null}
 
 			<Input
 				error={ageError && ageTouched}
@@ -125,9 +121,7 @@ const UserForm = ({ user, handler, setUsers, setToast, deleteHandler }) => {
 					setAgeTouched(true);
 				}}
 			/>
-			{ageError && ageTouched ? (
-				<p>Error: age must be between 0 and 120</p>
-			) : null}
+			{ageError && ageTouched ? <p>{t('ageError')}</p> : null}
 
 			<Input
 				error={phoneError && phoneTouched}
