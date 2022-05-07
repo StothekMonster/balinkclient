@@ -85,6 +85,7 @@ export const Col5 = styled.div`
 `;
 
 export const PageTitle = styled.h1`
+	margin-top: 80px;
 	margin-bottom: 30px;
 	font-size: 2rem;
 	text-transform: capitalize;

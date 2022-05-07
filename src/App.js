@@ -4,6 +4,7 @@ import { HomePage } from './pages/home/home.component';
 import GlobalStyle from './globalStyles';
 import React, { useEffect, useState } from 'react';
 import { ThemeProvider } from 'styled-components';
+import Header from './components/header/header.component';
 import './i18n';
 
 import {
@@ -54,6 +55,7 @@ function App() {
 			<ThemeProvider theme={theme}>
 				<GlobalStyle />
 				<div className='App'>
+					<Header changeLanguageHandler={changeLanguage} />
 					<Routes>
 						<Route
 							exact

@@ -24,7 +24,6 @@ import {
 import _ from 'lodash';
 import { PATHS } from '../../App';
 import { Link } from 'react-router-dom';
-import LanguageButtons from '../../components/LanguageButtons.jsx';
 
 const params = {
 	id: { label: 'id' },
@@ -38,7 +37,7 @@ const toastOptions = {
 	position: toast.POSITION.BOTTOM_LEFT,
 };
 
-export const HomePage = ({ users, toastMessage, changeLanguageHandler }) => {
+export const HomePage = ({ users, toastMessage }) => {
 	const { t } = useTranslation();
 	const [usersCopy, setUsersCopy] = useState([]);
 	const [search, setSearch] = useState('');
@@ -101,7 +100,6 @@ export const HomePage = ({ users, toastMessage, changeLanguageHandler }) => {
 	return (
 		<PageContainer>
 			<PageTitle>{t('home')}</PageTitle>
-			<LanguageButtons changeLanguageHandler={changeLanguageHandler} />
 			<FilterContainer>
 				<Label>{`${t('filter')}:`} </Label>
 				<Filter

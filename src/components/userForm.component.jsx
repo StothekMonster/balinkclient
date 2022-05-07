@@ -103,8 +103,8 @@ const UserForm = ({ user, handler, setUsers, setToast, deleteHandler }) => {
 
 			<Input
 				error={lastNameError && LastNameTouched}
-				defaultValue={t('last')}
-				placeholder='Last Name'
+				defaultValue={lastName}
+				placeholder={t('last')}
 				type='text'
 				onChange={(e) => {
 					setLastName(e.target.value);
